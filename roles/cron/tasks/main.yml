@@ -1,0 +1,68 @@
+---
+
+- assert:
+    that:
+      - 'item.key            != ""'
+      - 'item.value.comment  != ""'
+      - 'item.value.schedule != ""'
+      - 'item.value.user     != ""'
+      - 'item.value.command  != ""'
+  with_dict: "{{ cron_timespe }}"
+  tags:
+    - cron_tasks_timespe
+
+
+- assert:
+    that:
+      - 'item.key            != ""'
+      - 'item.value.comment  != ""'
+      - 'item.value.minute   != ""'
+      - 'item.value.hour     != ""'
+      - 'item.value.day      != ""'
+      - 'item.value.month    != ""'
+      - 'item.value.weekday  != ""'
+      - 'item.value.user     != ""'
+      - 'item.value.command  != ""'
+  with_dict: "{{ cron }}"
+  tags:
+    - cron_tasks
+
+
+#- name: cron
+#  copy:
+#    content: "# {{ item.value.comment }}\n\n{{ item.value.schedule }} {{ item.value.user }} {{ item.value.command }}\n "
+#    dest: "/etc/cron.d/{{ item.key }}"
+#    owner: "root"
+#    group: "root"
+#    mode: 0644
+#  with_dict: "{{ cron }}"
+#  tags:
+#    - cron_tasks
+
+
+- name: cron_timespe
+  cron:
+    cron_file: "{{ item.key }}"
+    name: "{{ item.value.comment }}"
+    user: "{{ item.value.user }}"
+    special_time: "{{ item.value.schedule }}"
+    job: "{{ item.value.command }}"
+  with_dict: "{{ cron_timespe }}"
+  tags:
+    - cron_tasks_timespe
+
+
+- name: cron
+  cron:
+    cron_file: "{{ item.key }}"
+    name: "{{ item.value.comment }}"
+    user: "{{ item.value.user }}"
+    minute: "{{ item.value.minute }}"
+    hour: "{{ item.value.hour }}"
+    day: "{{ item.value.day }}"
+    month: "{{ item.value.month }}"
+    weekday: "{{ item.value.weekday }}"
+    job: "{{ item.value.command }}"
+  with_dict: "{{ cron }}"
+  tags:
+    - cron_tasks

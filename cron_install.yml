@@ -1,0 +1,10 @@
+---
+
+# tags:
+#   cron_task:
+#   cron_tasks_timespe:
+
+- name: configure cron tasks
+  hosts: cron
+  roles:
+    - cron

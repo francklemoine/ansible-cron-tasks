@@ -1,0 +1,28 @@
+---
+# default
+
+# Cron Tasks
+cron_timespe:
+  cron_d_file1:
+    comment: "xxxxxx"
+    schedule: "reboot"
+    user: "root"
+    command: "foo"
+  cron_d_file2:
+    comment: "xxxxxx"
+    schedule: "hourly"
+    user: "root"
+    command: "baz"
+
+
+# Cron Tasks
+cron:
+  cron_d_file3:
+    comment: "xxxxxx"
+    minute: "0"
+    hour: "23"
+    day: "*"
+    month: "*"
+    weekday: "0"
+    user: "root"
+    command: 'baz'
